@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "クリーンアップ拡張機能",
+  "version": "1.0",
+  "description": "Chromeの起動時に閲覧履歴などを自動削除します。",
+  "permissions": [
+    "browsingData",
+    "alarms",
+    "storage"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/icon16-light.png",
+      "48": "images/icon48-light.png",
+      "128": "images/icon128-light.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16-light.png",
+    "48": "images/icon48-light.png",
+    "128": "images/icon128-light.png"
+  }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>クリーンアップ設定</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 480px; /* ここを調整しました */
+      max-width: 90%;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-size: 24px;
+      color: #1a73e8;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 15px;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .checkbox-item input[type="checkbox"] {
+      margin-right: 12px;
+      accent-color: #1a73e8;
+    }
+    .checkbox-item label {
+      font-size: 16px;
+      user-select: none;
+    }
+    .tooltip-container {
+      position: relative;
+      margin-left: 8px;
+      cursor: help;
+    }
+    .tooltip-icon {
+      font-weight: bold;
+      font-size: 14px;
+      color: #999;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      width: 300px; /* ここを調整しました */
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -150px; /* ここを調整しました (widthの半分) */
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    #saveButton {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #1a73e8;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+    #saveButton:hover {
+      background-color: #155bb5;
+    }
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #28a745;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>削除するデータの選択</h1>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="history"> 閲覧履歴</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          アクセスしたウェブサイトのURLや訪問日時など、ブラウジングの履歴を削除します。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="downloads"> ダウンロード履歴</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          ダウンロードしたファイルのリストを削除します。実際のファイルは削除されません。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="cookies"> クッキーと他のサイトデータ</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          ログイン情報、サイトのパーソナライズ設定など、サイトが保存したデータを削除します。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="cache"> キャッシュされた画像とファイル</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          ウェブサイトの読み込みを速くするために一時的に保存された画像やファイルを削除します。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="passwords"> パスワードとその他のログインデータ</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          ウェブサイトにログインするために保存されたユーザー名とパスワードを削除します。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="formData"> 自動入力フォームのデータ</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          ウェブサイトのフォームに自動入力される名前や住所などのデータを削除します。
+        </span>
+      </div>
+    </div>
+    <div class="checkbox-item">
+      <label><input type="checkbox" id="appcache"> ホストされているアプリデータ</label>
+      <div class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          オフラインで使用するために保存されたWebアプリのデータを削除します。
+        </span>
+      </div>
+    </div>
+    <button id="saveButton">設定を保存</button>
+    <p id="status"></p>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
